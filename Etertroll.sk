@@ -1,0 +1,162 @@
+# ██████████████████████████████████████████████████████
+# ██ ▄▄▄█▄▄ ▄▄█▄ ▄▄ █▄ ▄▄▀█▄▄ ▄▄█▄ ▄▄▀█ ▄▄ █▄ ▄███▄ ▄███
+# ██ ▄█▀███ ████ ▄█▀██ ▄ ▄███ ████ █ ▄█ ██ ██ ██▀██ ██▀█
+# ██▄▄▄▄███▄████▄▄▄▄▄█▄▄█▄▄██▄████▄██▄▄█▄▄▄▄█▄▄▄▄▄█▄▄▄▄█
+# DO NOT CHANGE HELP AND VERSION!
+# DO NOT CHANGE THE CREDITS! Thank you <3
+options:
+	permmsg: "&cYou are not permitted to execute this command."
+	help: "&6Correct syntax: /troll [help|version|float|blind|op|smite|apple|potato|mob|push|bomb|sound|speed|slow|speed]"
+	description: "&6Troll your friends with this cool skript! Made by Seo Jun#3504 &7[&8Version 1.0&7]"
+	prefix: "&cEterTroll &8»"
+	version: "%{@prefix}%&6Version &71.0"
+# ┌───────────────────────────────┐
+# > [WARNING DO NOT TOUCH!!!!!!!!]
+# > [WARNING DO NOT TOUCH!!!!!!!!]
+
+# > ETERTROLL DO NOT TOUCH PLEASE!
+# > ETERTROLL DO NOT TOUCH PLEASE!
+# > ETERTROLL DO NOT TOUCH PLEASE!
+
+# > [WARNING DO NOT TOUCH!!!!!!!!]
+# > [WARNING DO NOT TOUCH!!!!!!!!]
+# └───────────────────────────────┘
+command /troll [<text>] [<player>]:
+	description: {@description}
+	cooldown: 5 seconds
+	cooldown message: {@prefix} &cYou can only do this command every 5 seconds.
+	permission: skript.troll
+	permission message:  {@permmsg}
+	trigger:
+		if arg-1 is "float":
+			if arg-2 is player:
+				apply levitation 15 to arg-2 for 5 seconds
+				wait 5 seconds
+				apply resistance 15 to arg-2 for 4 seconds
+				message "%{@prefix}%&7 Successfully did &a%arg-1% &7troll!"
+		if arg-1 is "blind":
+			if arg-2 is player:
+				apply blindness 1 to arg-2 for 5 seconds
+				send title "&cYou are blinded" to arg-2 for 3.5 seconds
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "help":
+			message {@help}
+		if arg-1 is "op":
+			if arg-2 is player:
+				broadcast "&7&o[Server: Made %arg-2% a server operator]"
+				make console execute "lp user %arg-2% promote fakeop"
+				wait 1 minute
+				make console execute "lp user %arg-2% promote default"
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "smite":
+			if arg-2 is player:
+				loop 3 times:
+					strike lightning effect at the arg-2
+					damage arg-2 by 1 heart
+					wait 0.1 second
+				send title "&c&lYou have been smited!" to arg-2 for 1 second
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "apple":
+			if arg-2 is player:
+				give player 1 golden apple of curse of binding 1 named "&6Golden Apple"
+				send "&6You have recieved a golden apple!" to arg-2
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "potato":
+			if arg-2 is player:
+				give player 10000 potato of curse of binding 1 named "&8&kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "push":
+			if arg-2 is player:
+				set {_face} to north
+				set {_face2} to west
+				set {_face3} to south
+				set {_face4} to east
+				if {_face} is north:
+					loop 3 times:
+						push arg-2 {_face} at speed 0.7
+						push arg-2 upwards at speed 0.5
+						push arg-2 {_face2} at speed 0.7
+						wait 0.4 seconds
+						push arg-2 {_face4} at speed 0.7
+						push arg-2 {_face3} at speed 0.7
+					wait 0.39 seconds
+					damage arg-2 by 1.5 hearts
+					message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "mob":
+			if arg-2 is player:
+				spawn 10 zombies 1.5 meters above arg-2
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "pumpkin":
+			if arg-2 is player:
+				set player's helmet to carved pumpkin of curse of binding 1 and curse of vanishing 1 named "&c&lSub to ForUToo"
+				apply blindness 1 to arg-2 for 20 seconds
+				send title "&c&lYou have been pumpkined" to arg-2
+				wait 19 seconds
+				set arg-2's helmet to air
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-2 is not set:
+			if arg-1 is not "help" or "version":
+				message {@help}
+		if arg-1 is "bomb":
+			if arg-2 is player:
+				spawn 10 tnt 75 meters above arg-2
+		if arg-1 is "sound":
+			if arg-2 is player:
+				play sound "ambient.cave" with volume 10 to the arg-2
+				apply blindness 1 to arg-2 for 5 seconds
+				apply nausea 5 to arg-2 for 10 seconds
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "slow":
+			if arg-2 is player:
+				apply slowness 5 to arg-2 for 30 seconds
+				give arg-2 2 potato of curse of binding 1 named "&4&lDeath potato"
+				wait 30 seconds
+				remove 5 potato named "&4&lDeath potato" from arg-2's inventory
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "speed":
+			if arg-2 is player:
+				apply speed 5 to arg-2 for 30 seconds
+				apply nausea 5 to arg-2 for 30 seconds
+				apply haste 5 to arg-2 for 30 seconds
+				send title "&3&l»» FAST FORWARD »»" for 30 seconds
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+		if arg-1 is "version":
+			send {@version} to player
+# ┌───────────────────────────┐
+# > CONSOLE
+# > Preventions and functions
+# > [WARNING DO NOT TOUCH!]
+# > [WARNING DO NOT TOUCH!]
+# > [WARNING DO NOT TOUCH!]
+# └───────────────────────────┘		
+on consume:
+	if player is holding a golden apple named "&6Golden Apple":
+		apply nausea 10 to player for 15 seconds
+		apply blindness 1 to player for 10 seconds
+		send title "&cYou ate a cursed golden apple!" to player for 4.7 seconds
+		wait 4.7 seconds
+		kill player
+on consume:
+	if player is holding a potato named "&8&kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa":
+		apply nausea 10 to player for 15 seconds
+		apply blindness 1 to player for 10 seconds
+		send title "&cYou ate a cursed potato!" to player for 4.7 seconds
+		wait 4.7 seconds
+		remove 10000 potato named "&8&kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" from player's inventory	
+		kill player
+on drop:
+	if player has a potato named "&6Golden Apple":
+		cancel event
+		message "&c&lNo throwing apples!"
+	if player has a potato named "&4&lDeath potato":
+		cancel event
+		message "&c&lNo throwing potatos!"
+	if player has a potato named "&8&kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa":
+		cancel event
+		message "&c&lNo throwing potatos!"
+	if player has a carved pumpkin named "&c&lSub to ForUToo":
+		cancel event
+		message "&c&lNo throwing the holy carved pumpkin!"
+on jump:
+	if player has potato named "&4&lDeath potato":
+		cancel event
