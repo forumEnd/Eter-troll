@@ -1,0 +1,43 @@
+options:
+	prefix: "&8[&aAFK&8]&f"
+	nodamage: true # doesnt deal damage to players afk and players getting hurt by afk players
+
+on skript load:
+	make console execute "gamerule sendCommandFeedback false"
+	make console execute "team add afk"
+	make console execute "team modify afk color dark_gray"
+command /afk:
+	cooldown: 10 seconds
+	cooldown message: &cWait 10 seconds to execute the command again.
+	trigger:
+		if {%player%.afk} is false:
+			broadcast "%{@prefix}% &a%player%&f is now AFK!"
+			make console execute "gamerule sendCommandFeedback false"
+			make console execute "team add afk"
+			make console execute "team modify afk color dark_gray"
+			set {%player%.afk} to true
+			wait 1 second
+			make console execute "team join afk %player%"
+		else:
+			message "&4&lError! &cYou are already afk!"
+on any move:
+	if {%player%.afk} is true:
+		set {%player%.afk} to false
+		maif {%victim%.afk} is {@nodamage}:ke console execute "team leave %player%"
+		broadcast "%{@prefix}% &a%player%&f is now no longer AFK!"
+on chat:
+	if {%player%.afk} is true:
+		set {%player%.afk} to true
+		make console execute "team leave %player%"
+		broadcast "%{@prefix}% &a%player%&f is now no longer AFK!"
+on command:
+	if {%player%.afk} is true:
+		if command is not "afk":
+			set {%player%.afk} to false
+			make console execute "team leave %player%"
+			broadcast "%{@prefix}% &a%player%&f is now no longer AFK!"
+on damage of player:
+	if {%victim%.afk} is {@nodamage}:
+		cancel event
+	if {%attacker%.afk} is {@nodamage}:
+		cancel event
