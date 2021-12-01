@@ -9,7 +9,7 @@ options:
 	help: "&6Correct syntax: /troll [help|version|float|blind|op|smite|apple|potato|mob|push|bomb|sound|speed|slow|speed]"
 	description: "&6Troll your friends with this cool skript! Made by Seo Jun#3504 &7[&8Version 1.0&7]"
 	prefix: "&cEterTroll &8»"
-	version: "%{@prefix}%&6Version &71.0"
+	version: "%{@prefix}%&6Version &71.1"
 # ┌───────────────────────────────┐
 # > [WARNING DO NOT TOUCH!!!!!!!!]
 # > [WARNING DO NOT TOUCH!!!!!!!!]
@@ -109,19 +109,26 @@ command /troll [<text>] [<player>]:
 		if arg-1 is "slow":
 			if arg-2 is player:
 				apply slowness 5 to arg-2 for 30 seconds
-				give arg-2 2 potato of curse of binding 1 named "&4&lDeath potato"
-				wait 30 seconds
-				remove 5 potato named "&4&lDeath potato" from arg-2's inventory
+				set {%arg-2%.antijump} to true
 				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+				wait 30 seconds
+				set {%arg-2%.antijump} to false
 		if arg-1 is "speed":
 			if arg-2 is player:
 				apply speed 5 to arg-2 for 30 seconds
 				apply nausea 5 to arg-2 for 30 seconds
 				apply haste 5 to arg-2 for 30 seconds
-				send title "&3&l»» FAST FORWARD »»" for 30 seconds
+				send title "&3&l»» FAST FORWARD »»" to arg-2 for 30 seconds
 				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
 		if arg-1 is "version":
 			send {@version} to player
+		if arg-1 is "freeze":
+			if arg-2 is player:
+				set {%arg-2%.freeze} to true
+				send title "&bYou feel a cold breeze.." to arg-2 for 5 seconds
+				message "%{@prefix}%&7 successfully did &a%arg-1% &7troll!"
+				wait 20 seconds
+				set {%arg-2%.freeze} to false
 # ┌───────────────────────────┐
 # > CONSOLE
 # > Preventions and functions
@@ -158,5 +165,8 @@ on drop:
 		cancel event
 		message "&c&lNo throwing the holy carved pumpkin!"
 on jump:
-	if player has potato named "&4&lDeath potato":
+	if {%player%.antijump} is true:
+		cancel event
+on any move:
+	if {%player%.freeze} is true:
 		cancel event
